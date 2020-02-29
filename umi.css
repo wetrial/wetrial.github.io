@@ -1,0 +1,20 @@
+body {
+  overflow: hidden;
+}
+#root-master {
+  height: 100%;
+}
+#root-slave {
+  display: flex;
+  flex: 1 1;
+  background: white;
+  overflow-y: auto;
+}
+#root-slave > div {
+  flex: 1 1;
+}
+#root-slave .__father-doc-default-menu,
+#root-slave .__father-doc-default-layout-toc {
+  top: 64px;
+}
+
