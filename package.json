@@ -1,0 +1,49 @@
+{
+  "name": "wetrial.github.io",
+  "version": "0.0.1",
+  "description": "wetrial site",
+  "authors": {
+    "name": "xiexingen",
+    "email": "1002275364@qq.com"
+  },
+  "repository": "https://github.com/wetrial/wetrial.github.io",
+  "main": "lib/index.js",
+  "scripts": {
+    "start": "cross-env REACT_APP_ENV=dev umi dev",
+    "build": "COMPRESS=none umi build",
+    "test": "umi test",
+    "patch": "yarn version --patch && git push origin master && git push origin --tags",
+    "minor": "yarn version --minor && git push origin master && git push origin --tags",
+    "major": "yarn version --major && git push origin master && git push origin --tags",
+    "lint": "yarn lint:js && yarn lint:style && yarn lint:prettier",
+    "lint-staged": "lint-staged",
+    "lint-staged:js": "eslint --ext .js,.jsx,.ts,.tsx ",
+    "lint:fix": "eslint --fix --cache --ext .js,.jsx,.ts,.tsx --format=pretty ./src && yarn lint:style",
+    "lint:js": "eslint --cache --ext .js,.jsx,.ts,.tsx --format=pretty ./",
+    "lint:prettier": "check-prettier lint",
+    "lint:style": "stylelint --fix \"src/**/*.less\" --syntax less",
+    "prettier": "prettier -c --write \"**/*\""
+  },
+  "devDependencies": {
+    "@types/node": "^13.7.4",
+    "@umijs/fabric": "^2.0.2",
+    "@umijs/plugin-qiankun": "^1.4.0",
+    "antd": "^4.0.0",
+    "cross-env": "^6.0.3",
+    "np": "^5.0.3",
+    "typescript": "^3.8.2",
+    "umi": "^2.9.0",
+    "umi-plugin-react": "^1.15.2",
+    "umi-types": "^0.5.12"
+  },
+  "files": [
+    "dist",
+    "lib",
+    "src",
+    "ui"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "dva": "^2.4.1"
+  }
+}
