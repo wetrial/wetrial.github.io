@@ -3,6 +3,7 @@
 // const isSite = REACT_APP_ENV !== 'dev';
 
 export default {
+  hash: true,
   // base: '/wetrial-site',
   // publicPath: '/wetrial-site/',
   plugins: [
