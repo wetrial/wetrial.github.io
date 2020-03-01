@@ -62,7 +62,7 @@ var links = [{
   description: '可插拔的企业级react应用框架'
 }, {
   title: 'TypeScript',
-  href: 'https://www.typescriptlang.org/',
+  href: 'https://www.typescriptlang.org/docs/home.html',
   cover: 'https://gw.alipayobjects.com/mdn/rms_08e378/afts/img/A*MaL2SYtHPuMAAAAAAAAAAABkARQnAQ',
   description: '强类型的js'
 }, {
