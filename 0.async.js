@@ -97,7 +97,7 @@ var default_1 = class extends _react.default.PureComponent {
       id: "root-subapp-container"
     }) : null), _react.default.createElement(Footer, {
       className: _style3.default.footer
-    }, "Ant Design \u00A92020 Created by Wetrial"));
+    }, "Wetrial Dev \u00A92020 Created by Wetrial"));
   }
 
 };
