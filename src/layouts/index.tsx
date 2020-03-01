@@ -48,7 +48,7 @@ export default class extends React.PureComponent<any> {
           {selectKey === '/' ? children : null}
           {apps.length ? <div id="root-subapp-container" /> : null}
         </Content>
-        <Footer className={style.footer}>Ant Design ©2020 Created by Wetrial</Footer>
+        <Footer className={style.footer}>Wetrial Dev ©2020 Created by Wetrial</Footer>
       </Layout>
     );
   }
