@@ -1,0 +1,26 @@
+.layout___3CCE0 {
+  height: 100%;
+}
+.logo___3w77W {
+  margin: 16px 24px 0 0;
+  float: left;
+  width: 100px;
+  height: 31px;
+  line-height: 31px;
+  text-align: center;
+  color: white;
+  background: #b6898933;
+}
+.content___3mo4D {
+  display: flex;
+  flex-direction: column;
+  padding: 0 30px;
+  overflow-y: auto;
+}
+.breadcrumb___2-SCQ {
+  margin: 16px 0;
+}
+.footer___2_3U_ {
+  text-align: center;
+}
+
