@@ -31,19 +31,19 @@ const links = [
   },
   {
     title: 'Wetrial 开发者文档',
-    href: 'https://wetrial.github.io/wetrial-doc',
+    href: 'https://wetrial.github.io/wetrial-doc/#/doc/style',
     cover: 'https://gw.alipayobjects.com/mdn/rms_08e378/afts/img/A*T_HeSIJ30IIAAAAAAAAAAABkARQnAQ',
     description: '包括代码规范、页面设计规范、教程等',
   },
   {
     title: 'Wetrial Core',
-    href: 'https://wetrial.github.io/core',
+    href: 'https://wetrial.github.io/core/#/core/list',
     cover: 'https://gw.alipayobjects.com/mdn/rms_08e378/afts/img/A*yQqmQ514NNIAAAAAAAAAAABkARQnAQ',
     description: 'Wetrial的核心类库',
   },
   {
     title: 'Wetrial Component',
-    href: 'https://wetrial.github.io/component',
+    href: 'https://wetrial.github.io/component/#/component/list/',
     cover: 'https://gw.alipayobjects.com/mdn/rms_08e378/afts/img/A*Up8ARYnOd_AAAAAAAAAAAABkARQnAQ',
     description: 'Wetrial的通用组件库',
   },
@@ -65,12 +65,12 @@ const colSpan = {
   xxl: { span: 4 },
 };
 
-export default function() {
+export default function () {
   return (
     <div className={style.container}>
       <h2>资料链</h2>
       <Row gutter={[16, 8]}>
-        {links.map(item => {
+        {links.map((item) => {
           return (
             <Col key={item.href} {...colSpan}>
               <a href={item.href} target="_blank" rel="noopener noreferrer">

@@ -18,8 +18,12 @@
     "experimentalDecorators": true,
     "strict": true,
     "noImplicitAny": false,
+    "resolveJsonModule": true,
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@@/*": ["src/.umi/*"],
+      "@config/*": ["./config/*"],
+      "@modules/*": ["./src/modules/*"]
     }
   },
   "exclude": [

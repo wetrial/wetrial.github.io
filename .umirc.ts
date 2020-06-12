@@ -1,69 +1,113 @@
-// const { REACT_APP_ENV } = process.env;
+import { defineConfig, utils } from 'umi';
+import { join } from 'path';
+// import AntdDayjsWebpackPlugin from 'antd-dayjs-webpack-plugin';
+// import slash from 'slash2';
+// import themePluginConfig from './themePluginConfig';
+import proxy from './config/proxy';
+import themeConfig from './config/theme.config';
+import routes from './config/routes';
+import defaultSetting from './config/defaultSettings';
+import chinaWebpack from './config/plugin.chinaWebpack';
 
-// const isSite = REACT_APP_ENV !== 'dev';
+const { REACT_APP_ENV = 'dev' } = process.env;
 
-export default {
+const { winPath } = utils;
+
+export default defineConfig({
+  favicon: '/favicon.ico',
+  runtimePublicPath: true,
+  history: {
+    type: 'browser',
+  },
   hash: true,
-  // base: '/wetrial-site',
-  // publicPath: '/wetrial-site/',
-  plugins: [
-    [
-      '@umijs/plugin-qiankun',
-      {
-        master: {
-          defer: true,
-          jsSandbox: true,
-          prefetch: true,
-          // 注册子应用信息
-          // apps: [
-          //   {
-          //     name: 'core',
-          //     entry: 'http://localhost:8000',
-          //     base: '/core',
-          //     mountElementId: 'root-subapp-container',
-          //   },
-          //   {
-          //     name: 'component',
-          //     entry: 'http://localhost:8000',
-          //     base: '/component',
-          //     mountElementId: 'root-subapp-container',
-          //     // props: {
-          //     //   testProp: 'test',
-          //     // },
-          //     entry: {
-          //       // TODO 支持 config entry
-          //       scripts: [],
-          //       styles: [],
-          //     },
-          //   },
-          // ],
+  antd: {},
+  request: false,
+  layout: {
+    title: defaultSetting.title,
+    theme: defaultSetting.navTheme,
+    locale: defaultSetting.menu.locale,
+  },
+  dva: {
+    immer: true,
+    hmr: true,
+  },
+  locale: false,
+  dynamicImport: {
+    loading: '@/components/PageLoading/index',
+  },
+  ignoreMomentLocale: true,
+  targets: {
+    ie: 11,
+  },
+  routes,
+  // Theme for antd: https://ant.design/docs/react/customize-theme-cn
+  theme: themeConfig,
+  define: {
+    REACT_APP_ENV: REACT_APP_ENV,
+  },
+  alias: {
+    themes: join(__dirname, './src/themes'),
+    '@config': join(__dirname, './config'),
+    '@modules': join(__dirname, './src/modules'),
+  },
+  lessLoader: {
+    javascriptEnabled: true,
+  },
+  cssLoader: {
+    // 这里的 modules 可以接受 getLocalIdent
+    modules: {
+      getLocalIdent: (
+        context: {
+          resourcePath: string;
         },
+        _: string,
+        localName: string,
+      ) => {
+        if (
+          context.resourcePath.includes('node_modules') ||
+          context.resourcePath.includes('ant.design.pro.less') ||
+          context.resourcePath.includes('global.less')
+        ) {
+          return localName;
+        }
+        const match = context.resourcePath.match(/src(.*)/);
+        if (match && match[1]) {
+          const antdProPath = match[1].replace('.less', '');
+          const arr = winPath(antdProPath)
+            .split('/')
+            .map((a: string) => a.replace(/([A-Z])/g, '-$1'))
+            .map((a: string) => a.toLowerCase());
+          return `wt-site${arr.join('-')}-${localName}`.replace(/--/g, '-');
+        }
+        return localName;
       },
-    ],
+    },
+  },
+  manifest: {
+    basePath: '/',
+  },
+  proxy: proxy[REACT_APP_ENV],
+  // plugins: [new AntdDayjsWebpackPlugin()],
+  chainWebpack: chinaWebpack,
+  // 配置具体含义见：https://github.com/umijs/umi-webpack-bundle-analyzer#options-for-plugin
+  analyze: {
+    analyzerMode: 'server',
+    analyzerPort: 8888,
+    openAnalyzer: true,
+    // generate stats file while ANALYZE_DUMP exist
+    generateStatsFile: false,
+    statsFilename: 'stats.json',
+    logLevel: 'info',
+    defaultSizes: 'parsed', // stat  // gzip
+  },
+  extraBabelPlugins: [
     [
-      'umi-plugin-react',
+      'import',
       {
-        title: 'Wetrial 前端',
-        antd: true,
-        dva: {
-          immer: true,
-          hmr: true,
-        },
-        dynamicImport: true,
-        routes: {
-          exclude: [/models\//, /services\//, /model\.(t|j)sx?$/, /service\.(t|j)sx?$/],
-        },
-        // headScripts: ['https://hm.baidu.com/hm.js?a3636d814818bccb02a7991d78ba3048'],
-        scripts: [
-          // 由于github不支持url重写，history-route模式下会跳转到404 404页面会对路由进行处理将路由转换成?path=xxx/xxx这种形式，首页需要对这种进行处理通过window.g_history.push()进行跳转
-          `(function(g_history){
-            if(g_history&&g_history.location&&g_history.location.query&&g_history.location.query.path){
-              var hash=g_history.location.hash
-              g_history.push({pathname:g_history.location.query.path,hash:hash})
-            }
-          }(window.g_app._history))`,
-        ],
+        libraryName: 'antd',
+        libraryDirectory: 'es',
+        style: 'css',
       },
     ],
   ],
-};
+});
